@@ -11,6 +11,7 @@ A Node.js utility designed to clean up your PostHog analytics by identifying bot
         - [Avastel Proxy Lists](https://github.com/antoinevastel/avastel-bot-ips-lists) (Daily): High-confidence residential proxy detection.
         - [Firehol Blocklist](https://github.com/firehol/blocklist-ipsets) (Daily): Level 1 blocklist for malicious traffic.
         - [ShadowWhisperer IPs](https://github.com/ShadowWhisperer/IPs) (Hourly): Comprehensive lists for BruteForce, Malware, and Scanners.
+        - [PostHog Bot IPs](https://raw.githubusercontent.com/PostHog/posthog/refs/heads/master/nodejs/assets/bot-ips.txt): Official PostHog bot filter list.
         - **Official Provider Lists**: Direct JSON feeds from Google, Microsoft (Bing), OpenAI, and Anthropic.
     - Rationale:
         - Posthog does not allow retroactive updates to events, so if you have a "bot problem" and you fix it with a Transformation, only future events will be affected.
@@ -37,6 +38,7 @@ A Node.js utility designed to clean up your PostHog analytics by identifying bot
 -   **Person IP Tracking**:
     -   `$initial_ip`: Records the first-ever seen IP.
     -   `$latest_ip`: Tracks the most recent IP if it differs from the initial one.
+    -   `$latest_nonproxy_ip`: Tracks the most recent IP address that is **not** identified as a datacenter or bot/proxy. Useful for finding the real residential location of users who sometimes use VPNs.
     -   Rationale:
         - Posthog processes IP data into GeoIP data for Persons, but then drops the IP data.
         - This makes sense if you are in the EU or otherwise need GDPR compliance
